@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Person {
 
-    // Person Atributes
+    // Person Attributes
 
     private int id;
     private String name;
