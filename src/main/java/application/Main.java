@@ -1,7 +1,6 @@
 package application;
 
-import application.domain.BedRoom;
-import application.domain.Person;
+import application.domain.*;
 
 public class Main {
 
@@ -9,24 +8,35 @@ public class Main {
 
         Person person = new Person("jd@med.com");
 
-        /*
-        person.setId(1);
-        person.setName("John");
-        person.setLastName("Doe");
-        //person.setEmail("jd@mail.com");
-        person.setPassword("123456");
-        person.setState(true);
-
-        System.out.println(person.getId());
-        System.out.println(person.getName());
-        System.out.println(person.getEmail());
-        */
-
         BedRoom bedRoom = new BedRoom();
 
         bedRoom.createBedRoom(bedRoom);
 
         bedRoom.getBedRoomById(1, bedRoom);
+
+        Booking booking = new Booking();
+
+        booking.create(booking);
+
+        booking.getById(1, booking);
+
+        Employ employ = new Employ();
+
+        employ.create(employ);
+
+        employ.getById(1, employ);
+
+        Guest guest = new Guest();
+
+        guest.create(guest);
+
+        guest.getById(1, guest);
+
+        Service service = new Service();
+
+        service.create(service);
+
+        service.getById(1, service);
 
     }
 }

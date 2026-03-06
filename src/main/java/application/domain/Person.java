@@ -1,8 +1,11 @@
 package application.domain;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Person {
+
+    Scanner sc = new Scanner(System.in);
 
     // Person Atributes
 
@@ -82,10 +85,31 @@ public class Person {
         this.state = state;
     }
 
-    // Class Methods
-
     public Person createUser(Person person){
+        System.out.println("Ingrese el id de la persona");
+        int id = sc.nextInt();
+        person.id = id;
+        sc.nextLine();
 
+        System.out.println("Ingrese el nombre");
+        String name = sc.nextLine();
+        person.name = name;
+
+        System.out.println("Ingrese el apellido");
+        String lastName = sc.nextLine();
+        person.lastName = lastName;
+
+        System.out.println("Ingrese el email");
+        String email = sc.nextLine();
+        person.email = email;
+
+        System.out.println("Ingrese la contraseña");
+        String password = sc.nextLine();
+        person.password = password;
+
+        System.out.println("Ingrese el estado (true/false)");
+        boolean state = sc.nextBoolean();
+        person.state = state;
 
         return person;
     }
@@ -101,8 +125,16 @@ public class Person {
         return null;
     }
 
-    public Person getUserById(int id){
-        return null;
+    public void getUserById(int id){
+        if(this.id == id){
+            System.out.println("Id: " + this.id + "\n" +
+                    "Nombre: " + this.name + "\n" +
+                    "Apellido: " + this.lastName + "\n" +
+                    "Email: " + this.email + "\n" +
+                    "Estado: " + this.state + "\n");
+        }else{
+            System.out.println("Valide el id de la persona que esta consultando");
+        }
     }
 
     public void deleteUser(int id){

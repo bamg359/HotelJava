@@ -1,5 +1,6 @@
 package application.domain;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class BedRoom {
@@ -13,9 +14,6 @@ public class BedRoom {
     private String roomType;
     private double price;
     private boolean state;
-
-
-    // Constructors
 
     public BedRoom(){
 
@@ -32,9 +30,6 @@ public class BedRoom {
     public BedRoom(String room) {
         this.room = room;
     }
-
-    // Getter and Setters
-
 
     public int getRoomId() {
         return roomId;
@@ -76,8 +71,6 @@ public class BedRoom {
         this.state = state;
     }
 
-    // Methods
-
     public BedRoom createBedRoom(BedRoom bedRoom){
 
 
@@ -108,8 +101,11 @@ public class BedRoom {
         return bedRoom;
     }
 
-    public void getBedRoomById(int id , BedRoom bedRoom){
+    public List<BedRoom> getAllBedRoom(List<BedRoom> bedRoomList){
+        return bedRoomList;
+    }
 
+    public void getBedRoomById(int id , BedRoom bedRoom){
 
         if(this.roomId == id){
             System.out.println("Id:" + bedRoom.roomId + "\n" +
@@ -123,6 +119,12 @@ public class BedRoom {
             System.out.println("Valide el id de la habitacion que esta consultando");
         }
 
+    }
+
+    public void update(Booking productoEditado) {
+    }
+
+    public void delete(int id) {
     }
 
 
