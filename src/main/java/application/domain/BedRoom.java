@@ -21,13 +21,9 @@ public class BedRoom {
 
     }
 
-    public BedRoom(int roomId, String room, String roomType, double price, boolean state) {
-        this.roomId = roomId;
-        this.room = room;
-        this.roomType = roomType;
-        this.price = price;
-        this.state = state;
-    }
+
+
+
 
     public BedRoom(String room) {
         this.room = room;
