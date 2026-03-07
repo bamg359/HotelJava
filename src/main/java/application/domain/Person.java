@@ -105,14 +105,15 @@ public class Person {
         return null;
     }
 
-    public void deleteUser(int id){
-
-        }
-
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", state=" + state +
+                '}';
+    }
 }
