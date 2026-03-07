@@ -4,14 +4,15 @@ import java.util.List;
 
 public class Person {
 
+
     // Person Atributes
 
-    int id;
-    String name;
-    String lastName;
-    String email;
-    String password;
-    Boolean state;
+    private int id;
+    private String name;
+    private String lastName;
+    private String email;
+    private String password;
+    private Boolean state;
 
 
     // Constructors
