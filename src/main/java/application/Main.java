@@ -29,29 +29,9 @@ public class Main {
 //
 //        bedRoom.getBedRoomById(1, bedRoom);
 //
-//        Employ employ = new Employ(1, "Jane", "Smith", "email@fasd.com", "password123", true, "Gerente", 50000.0f);
-//
-//        System.out.println("Employ Name: " + employ.getPerson().getName());
+        Employ employ = new Employ(1, "Jane", "Smith", "email@fasd.com", "password123", true, "Gerente", 50000.0f);
 
-        // Create a new employ
-        Employ employ1 = new Employ();
-        employ1.createEmploy(employ1);
-        employ1.getEmployById(employ1.getId(), employ1);
-
-        // Create a new bedroom
-        BedRoom bedRoom = new BedRoom();
-        bedRoom.createBedRoom(bedRoom);
-        bedRoom.getBedRoomById(bedRoom.getRoomId(), bedRoom);
-
-        // Create a new guest
-        Guest guest = new Guest();
-        guest.createGuest(guest);
-        guest.getGuestById(guest.getPerson().getId(), guest);
-
-        // Create a new booking
-        Booking booking = new Booking();
-        booking.createBooking(booking);
-        booking.getBookingById(booking.getId(), booking);
+         System.out.println("Employ Name: " + employ.getPerson().getName());
 
     }
 }
