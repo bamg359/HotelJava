@@ -1,30 +1,30 @@
 package application.domain;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Guest {
 
+    Scanner sc = new Scanner(System.in);
+
     // Guest Attributes
-    
+
     private Person person;
     private String origin;
-    private int guestType;
 
     // Constructors
-    
+
     public Guest() {
     }
 
-    public Guest(Person person, String origin, int guestType) {
+    public Guest(Person person, String origin) {
         this.person = person;
         this.origin = origin;
-        this.guestType = guestType;
     }
 
-    public Guest(int id, String name, String lastName, String email, String password, Boolean state, String origin, int guestType) {
+    public Guest(int id, String name, String lastName, String email, String password, Boolean state, String origin) {
         this.person = new Person(id, name, lastName, email, password, state);
         this.origin = origin;
-        this.guestType = guestType;
     }
 
     // Getters and Setters
@@ -45,20 +45,19 @@ public class Guest {
         this.origin = origin;
     }
 
-    public int getGuestType() {
-        return guestType;
-    }
-
-    public void setGuestType(int guestType) {
-        this.guestType = guestType;
-    }
-
     // Class Methods
 
     public Guest createGuest(Guest guest) {
+        Person person = new Person();
+        person.createPerson(person);
+
+        System.out.println("Ingrese el origen del huesped");
+        String origin = sc.nextLine();
+        guest.setOrigin(origin);
+        sc.nextLine();
+
         return guest;
     }
-
 
     public Guest updateGuest(Guest guest) {
         return guest;
@@ -68,11 +67,22 @@ public class Guest {
         return null;
     }
 
-    public Guest getGuestById(int id) {
-        return null;
+    public void getGuestById(int id, Guest guest) {
+        if (guest.person.getId() == id) {
+            System.out.println(
+                    "Id:" + guest.person.getId() + "\n" +
+                            "Nombre:" + guest.person.getName() + "\n" +
+                            "Apellido:" + guest.person.getLastName() + "\n" +
+                            "Correo:" + guest.person.getEmail() + "\n" +
+                            "Estado: " + guest.person.getState()
+            );
+        } else {
+            System.out.println("Valide el id del huespet que esta consultando");
+        }
     }
 
     public void deleteGuest(int id) {
+
     }
 
 }

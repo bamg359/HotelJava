@@ -1,8 +1,11 @@
 package application.domain;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Person {
+
+    Scanner sc = new Scanner(System.in);
 
     // Person Attributes
 
@@ -13,13 +16,12 @@ public class Person {
     private String password;
     private Boolean state;
 
-
     // Constructors
 
     public Person() {
     }
 
-    public Person(String email){
+    public Person(String email) {
         this.email = email;
     }
 
@@ -34,11 +36,11 @@ public class Person {
 
     // Getters and Setters
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -82,34 +84,57 @@ public class Person {
         this.state = state;
     }
 
+    double number = 0.0;
+
     // Class Methods
 
-    public Person createUser(Person person){
+    public Person createPerson(Person person) {
 
+        int id = sc.nextInt();
+        person.setId(id);
+        sc.nextLine();
+
+        System.out.println("Ingrese el nombre");
+        String nombre = sc.nextLine();
+        person.setName(nombre);
+        System.out.println("Ingrese el apellido");
+        String apellido = sc.nextLine();
+        person.setLastName(apellido);
+        System.out.println("Ingrese el email");
+        String email = sc.nextLine();
+        person.setEmail(email);
+        System.out.println("Ingrese la contraseña");
+        String password = sc.nextLine();
+        person.setPassword(password);
+        person.setState(true);
 
         return person;
     }
 
-
-    public Person updateUser(Person person){
-
-
+    public Person updateUser(Person person) {
         return person;
     }
 
-    public List<Person> getUsers(){
+    public List<Person> getUsers() {
         return null;
     }
 
-    public Person getUserById(int id){
-        return null;
-    }
-
-    public void deleteUser(int id){
-
+    public void getUserById(int id, Guest guest) {
+        if (guest.getPerson().getId() == id) {
+            System.out.println(
+                    "Id:" + guest.getPerson().getId() + "\n" +
+                            "Nombre:" + guest.getPerson().getName() + "\n" +
+                            "Apellido:" + guest.getPerson().getLastName() + "\n" +
+                            "Correo:" + guest.getPerson().getEmail() + "\n" +
+                            "Estado: " + guest.getPerson().getState()
+            );
+        } else {
+            System.out.println("Valide el id del huespet que esta consultando");
         }
+    }
 
+    public void deleteUser(int id) {
 
-
+    }
 
 }

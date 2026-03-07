@@ -4,9 +4,7 @@ import java.util.Scanner;
 
 public class BedRoom {
 
-
     Scanner sc = new Scanner(System.in);
-
 
     private int roomId;
     private String room;
@@ -14,10 +12,8 @@ public class BedRoom {
     private double price;
     private boolean state;
 
-
     // Constructors
-
-    public BedRoom(){
+    public BedRoom() {
 
     }
 
@@ -78,8 +74,7 @@ public class BedRoom {
 
     // Methods
 
-    public BedRoom createBedRoom(BedRoom bedRoom){
-
+    public BedRoom createBedRoom(BedRoom bedRoom) {
 
         System.out.println("Ingrese el id de la habitación");
         int id = sc.nextInt();
@@ -103,26 +98,19 @@ public class BedRoom {
         boolean state = sc.nextBoolean();
         bedRoom.state = state;
 
-
-
         return bedRoom;
     }
 
-    public void getBedRoomById(int id , BedRoom bedRoom){
-
-
-        if(this.roomId == id){
+    public void getBedRoomById(int id, BedRoom bedRoom) {
+        if (this.roomId == id) {
             System.out.println("Id:" + bedRoom.roomId + "\n" +
                     "Num Hab: " + bedRoom.room + "\n" +
                     "Tipo hab: " + bedRoom.roomType + "\n" +
                     "Precio" + bedRoom.price + "\n" +
-                    "Estado:"  + bedRoom.state + "\n");
-
-
-        }else{
+                    "Estado:" + bedRoom.state + "\n");
+        } else {
             System.out.println("Valide el id de la habitacion que esta consultando");
         }
-
     }
 
 
