@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class Person {
 
-    Scanner sc = new Scanner(System.in);
-
     // Person Atributes
 
     private int id;
@@ -22,7 +20,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(String email){
+    public Person(String email) {
         this.email = email;
     }
 
@@ -37,11 +35,11 @@ public class Person {
 
     // Getters and Setters
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -85,63 +83,15 @@ public class Person {
         this.state = state;
     }
 
-    public Person createUser(Person person){
-        System.out.println("Ingrese el id de la persona");
-        int id = sc.nextInt();
-        person.id = id;
-        sc.nextLine();
-
-        System.out.println("Ingrese el nombre");
-        String name = sc.nextLine();
-        person.name = name;
-
-        System.out.println("Ingrese el apellido");
-        String lastName = sc.nextLine();
-        person.lastName = lastName;
-
-        System.out.println("Ingrese el email");
-        String email = sc.nextLine();
-        person.email = email;
-
-        System.out.println("Ingrese la contraseña");
-        String password = sc.nextLine();
-        person.password = password;
-
-        System.out.println("Ingrese el estado (true/false)");
-        boolean state = sc.nextBoolean();
-        person.state = state;
-
-        return person;
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", state=" + state +
+                '}';
     }
-
-
-    public Person updateUser(Person person){
-
-
-        return person;
-    }
-
-    public List<Person> getUsers(){
-        return null;
-    }
-
-    public void getUserById(int id){
-        if(this.id == id){
-            System.out.println("Id: " + this.id + "\n" +
-                    "Nombre: " + this.name + "\n" +
-                    "Apellido: " + this.lastName + "\n" +
-                    "Email: " + this.email + "\n" +
-                    "Estado: " + this.state + "\n");
-        }else{
-            System.out.println("Valide el id de la persona que esta consultando");
-        }
-    }
-
-    public void deleteUser(int id){
-
-        }
-
-
-
-
 }

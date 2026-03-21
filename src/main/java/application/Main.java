@@ -1,42 +1,29 @@
 package application;
 
-import application.domain.*;
+import application.domain.Employee;
+import application.domain.Guest;
+import application.service.EmployeeServiceImplementation;
+import application.service.GuestServiceImplementation;
+import application.userinterface.MenuApp;
+import application.view.EmployeeView;
+import application.view.GuestView;
+
+import java.awt.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Person person = new Person("jd@med.com");
-
-        BedRoom bedRoom = new BedRoom();
-
-        bedRoom.createBedRoom(bedRoom);
-
-        bedRoom.getBedRoomById(1, bedRoom);
-
-        Booking booking = new Booking();
-
-        booking.create(booking);
-
-        booking.getById(1, booking);
-
-        Employ employ = new Employ();
-
-        employ.create(employ);
-
-        employ.getById(1, employ);
-
         Guest guest = new Guest();
+        GuestServiceImplementation guestServiceImplementation = new GuestServiceImplementation();
+        GuestView guestView = new GuestView(guestServiceImplementation, guest);
 
-        guest.create(guest);
+        Employee employee = new Employee();
+        EmployeeServiceImplementation employeeServiceImplementation = new EmployeeServiceImplementation();
+        EmployeeView employeeView = new EmployeeView(employeeServiceImplementation, employee);
+        MenuApp menuApp = new MenuApp(guestView, employeeView);
 
-        guest.getById(1, guest);
-
-        Service service = new Service();
-
-        service.create(service);
-
-        service.getById(1, service);
+        menuApp.showMainMenu();
 
     }
 }

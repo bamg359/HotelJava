@@ -3,30 +3,20 @@ package application.domain;
 import java.util.List;
 import java.util.Scanner;
 
-public class Guest {
+public class Guest extends Person {
 
     Scanner sc = new Scanner(System.in);
-
-    Person person;
     String origen;
     String tipoGuest;
 
-    public Guest(Person person, String origen, String tipoGuest) {
-        this.person = person;
+    public Guest(int id, String name, String lastName, String email, String password, Boolean state, String origen, String tipoGuest) {
+        super(id, name, lastName, email, password, state);
         this.origen = origen;
         this.tipoGuest = tipoGuest;
     }
 
     public Guest() {
-
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
+        super();
     }
 
     public String getOrigen() {
@@ -45,42 +35,12 @@ public class Guest {
         this.tipoGuest = tipoGuest;
     }
 
-    public Guest create(Guest guest) {
-        System.out.println("Creando persona para el huésped");
-        Person person = new Person();
-        guest.person = person.createUser(person);
-
-        System.out.println("Ingrese el origen del huésped");
-        String origen = sc.nextLine();
-        guest.origen = origen;
-
-        System.out.println("Ingrese el tipo de huésped");
-        String tipo = sc.nextLine();
-        guest.tipoGuest = tipo;
-
-        return guest;
-    }
-
-    public List<Guest> getAll(List<Guest> guestList) {
-        return guestList;
-    }
-
-    public void getById(int id, Guest guest) {
-        if(guest.person.getId() == id){
-            System.out.println("Id: " + guest.person.getId() + "\n" +
-                    "Nombre: " + guest.person.getName() + "\n" +
-                    "Apellido: " + guest.person.getLastName() + "\n" +
-                    "Email: " + guest.person.getEmail() + "\n" +
-                    "Origen: " + guest.origen + "\n" +
-                    "Tipo: " + guest.tipoGuest + "\n");
-        }else{
-            System.out.println("Valide el id del huésped que esta consultando");
-        }
-    }
-
-    public void update(Guest productoEditado) {
-    }
-
-    public void delete(int id) {
+    @Override
+    public String toString() {
+        return "Guest{" +
+                "sc=" + sc +
+                ", origen='" + origen + '\'' +
+                ", tipoGuest='" + tipoGuest + '\'' +
+                '}';
     }
 }
