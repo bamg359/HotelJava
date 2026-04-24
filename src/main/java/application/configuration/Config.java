@@ -1,43 +1,50 @@
 package application.configuration;
 
-import application.domain.Guest;
 import application.repository.BedRoomRepository;
 import application.repository.BedRoomTypeRepository;
 import application.repository.GuestRepository;
+import application.repository.EmployeeRepository;
+
 import application.service.BedRoomServiceImp;
 import application.service.GuestAdminServiceImpl;
 import application.service.GuestServiceImpl;
+import application.service.EmployeeServiceImpl;
+
 import application.service.outputs.BedRoomService;
 import application.service.outputs.GuestAdminService;
 import application.service.outputs.GuestService;
+import application.service.outputs.EmployeeService;
+
 import application.service.ports.BedRoomRepositoryPort;
+import application.service.ports.EmployeeRepositoryPort;
+
 import application.userinterface.MenuApp;
 import application.view.BedRoomView;
 import application.view.GuestView;
+import application.view.EmployeeView;
 
 public class Config {
 
     public static MenuApp createMenuApp(){
 
-        Guest guest = new Guest();
+
         GuestRepository guestRepository = new GuestRepository();
         GuestService guestService = new GuestServiceImpl(guestRepository);
         GuestAdminService guestAdminService = new GuestAdminServiceImpl(guestRepository);
-        GuestView guestView = new GuestView(guestService, guest, guestAdminService );
+        GuestView guestView = new GuestView(guestService, guestAdminService);
+
 
         BedRoomTypeRepository bedRoomTypeRepository = new BedRoomTypeRepository();
-
-
         BedRoomRepositoryPort bedRoomRepositoryPort = new BedRoomRepository();
         BedRoomService bedRoomService = new BedRoomServiceImp(bedRoomRepositoryPort, bedRoomTypeRepository);
         BedRoomView bedRoomView = new BedRoomView(bedRoomService);
 
-        return new MenuApp(guestView, bedRoomView);
+        EmployeeRepositoryPort employeeRepositoryPort = new EmployeeRepository();
+        EmployeeService employeeService = new EmployeeServiceImpl(employeeRepositoryPort);
+        EmployeeView employeeView = new EmployeeView(employeeService);
+
+
+        return new MenuApp(guestView, bedRoomView, employeeView);
     }
-
-
-
-
-
-
 }
+
