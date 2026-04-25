@@ -6,8 +6,8 @@ import java.util.Optional;
 
 public interface GuestService {
     Guest createGuest(Guest guest);
-    Guest updateGuest(int id, Guest guest);
+    Guest updateGuest(int id, Guest guest);   // ✅ con parámetro id
     Optional<Guest> getGuestById(int id);
     List<Guest> getAllGuests();
-    void deleteGuest(int id);
+    boolean deleteGuest(int id);
 }

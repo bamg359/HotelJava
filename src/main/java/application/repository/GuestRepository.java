@@ -1,38 +1,42 @@
 package application.repository;
 
 import application.domain.Guest;
+import application.service.ports.GuestRepositoryPort;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class GuestRepository {
+public class GuestRepository implements GuestRepositoryPort {
     private final List<Guest> guests = new ArrayList<>();
 
-    public GuestRepository() {
-        // Datos iniciales
-        guests.add(new Guest(1, "Maria", "Gomez", "mg@mail.com", "123456", true, "Medellín", "Nuevo"));
-        guests.add(new Guest(2, "Juan", "Perez", "juan@mail.com", "654321", false, "Envigado", "Frecuente"));
-    }
-
+    @Override
     public Guest save(Guest guest) {
         guests.add(guest);
         return guest;
     }
 
-    public Guest update(int id, Guest guest) {
-        deleteById(id);
+    @Override
+    public Guest update(Guest guest) {
+        deleteById(guest.getId());
         guests.add(guest);
         return guest;
     }
 
-    public Guest findById(int id) {
-        return guests.stream().filter(g -> g.getId() == id).findFirst().orElse(null);
+    @Override
+    public Optional<Guest> findById(int id) {
+        return guests.stream()
+                .filter(g -> g.getId() == id)
+                .findFirst();
     }
 
+    @Override
     public List<Guest> findAll() {
         return new ArrayList<>(guests);
     }
 
-    public void deleteById(int id) {
-        guests.removeIf(g -> g.getId() == id);
+    @Override
+    public boolean deleteById(int id) {
+        return guests.removeIf(g -> g.getId() == id);
     }
 }

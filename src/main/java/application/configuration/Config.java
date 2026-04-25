@@ -44,7 +44,7 @@ public class Config {
         EmployeeView employeeView = new EmployeeView(employeeService);
 
 
-        return new MenuApp(guestView, bedRoomView, employeeView);
+        return new MenuApp(guestView, bedRoomView, employeeView );
     }
 }
 

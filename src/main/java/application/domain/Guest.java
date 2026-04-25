@@ -1,7 +1,7 @@
 package application.domain;
 
-import application.domain.enums.GuestState;
 import application.domain.enums.GuestType;
+import application.domain.enums.PersonState;
 
 public class Guest extends Person {
     private String city;
@@ -11,17 +11,18 @@ public class Guest extends Person {
 
     // Constructor completo usando atributos del padre y propios
     public Guest(int id, String firstName, String lastName, String email, String phone,
-                 GuestState state, String city, GuestType type) {
+                 PersonState state, String city, GuestType type) {
         super(id, firstName, lastName, email, phone, state); // usa el enum GuestState
         this.city = city;
         this.type = type;
     }
 
-    // Constructor reducido (solo ID, nombre y apellido)
-    public Guest(int id, String firstName, String lastName) {
-        super(id, firstName, lastName, null, null, GuestState.ACTIVE); // por defecto ACTIVO
-        this.city = null;
-        this.type = GuestType.NEW; // valor por defecto
+
+    public Guest(int id, String firstName, String lastName, String email, String phone,
+                 PersonState state, GuestType type, String city) {
+        super(id, firstName, lastName, email, phone, state);
+        this.type = type;   // ✅ guardas el enum
+        this.city = city;
     }
 
     // --- Getters y Setters propios ---

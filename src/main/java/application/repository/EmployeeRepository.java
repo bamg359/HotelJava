@@ -5,9 +5,9 @@ import application.service.ports.EmployeeRepositoryPort;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EmployeeRepository implements EmployeeRepositoryPort {
-
     private final List<Employee> employees = new ArrayList<>();
 
     @Override
@@ -18,21 +18,16 @@ public class EmployeeRepository implements EmployeeRepositoryPort {
 
     @Override
     public Employee update(Employee employee) {
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getId() == employee.getId()) {
-                employees.set(i, employee);
-                return employee;
-            }
-        }
-        throw new IllegalArgumentException("Empleado no encontrado con ID: " + employee.getId());
+        deleteById(employee.getId());
+        employees.add(employee);
+        return employee;
     }
 
     @Override
-    public Employee findById(int id) {
+    public Optional<Employee> findById(int id) {
         return employees.stream()
                 .filter(e -> e.getId() == id)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     @Override
@@ -41,7 +36,7 @@ public class EmployeeRepository implements EmployeeRepositoryPort {
     }
 
     @Override
-    public void deleteById(int id) {
-        employees.removeIf(e -> e.getId() == id);
+    public boolean deleteById(int id) {
+        return employees.removeIf(e -> e.getId() == id);
     }
 }

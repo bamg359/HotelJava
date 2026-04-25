@@ -1,46 +1,32 @@
 package application.domain;
 
-public class Employee extends Person{
+import application.domain.enums.PersonState;
 
+public class Employee extends Person {
     private String position;
     private double salary;
 
-    public Employee(){
+    public Employee() {}
 
-        super();
-    }
 
-    public Employee(int id, String name, String lastName, String email, String password, Boolean state, String position, double salary) {
-        super(id, name, lastName, email, password, state);
+    public Employee(int id, String firstName, String lastName, String email, String phone,
+                    PersonState state, String position, double salary) {
+        super(id, firstName, lastName, email, phone, state);
         this.position = position;
         this.salary = salary;
     }
 
-    public String getPosition() {
-        return position;
+
+    public Employee(int id, String firstName, String lastName) {
+        super(id, firstName, lastName, null, null, PersonState.ACTIVE); // por defecto ACTIVO
+        this.position = "General";
+        this.salary = 0.0;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
-    }
+    // --- Getters y Setters propios ---
+    public String getPosition() { return position; }
+    public void setPosition(String position) { this.position = position; }
 
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
-
-    public String getStateText() {
-        return active ? "ACTIVO" : "INACTIVO";
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "position='" + position + '\'' +
-                ", salary=" + salary +
-                '}';
-    }
+    public double getSalary() { return salary; }
+    public void setSalary(double salary) { this.salary = salary; }
 }
