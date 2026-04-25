@@ -40,10 +40,23 @@ public class EmployeeView {
     }
 
     private void createEmployee() {
-        Employee employee = new Employee();
+        int id = FormValidationUtil.validateInt("Ingrese el ID del empleado");
+        String firstName = FormValidationUtil.validateString("Ingrese el nombre");
+        String lastName = FormValidationUtil.validateString("Ingrese el apellido");
+
+        System.out.println("--- ESTADO DEL EMPLEADO ---");
+        System.out.println("1. ACTIVO");
+        System.out.println("2. INACTIVO");
+        int stateOption = FormValidationUtil.validateInt("Ingrese el número del estado");
+        boolean state = (stateOption == 1);
+
+        Employee employee = new Employee(id, firstName, lastName);
+        employee.setActive(state);
+
         employeeService.createEmployee(employee);
         System.out.println("Empleado creado correctamente.");
     }
+
 
     private void updateEmployee() {
         Employee employee = new Employee();

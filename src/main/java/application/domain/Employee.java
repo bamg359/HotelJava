@@ -32,6 +32,10 @@ public class Employee extends Person{
         this.salary = salary;
     }
 
+    public String getStateText() {
+        return active ? "ACTIVO" : "INACTIVO";
+    }
+
     @Override
     public String toString() {
         return "Employee{" +

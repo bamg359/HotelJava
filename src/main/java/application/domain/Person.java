@@ -1,5 +1,7 @@
 package application.domain;
 
+import application.domain.enums.GuestState;
+
 import java.util.List;
 
 public class Person {
@@ -11,7 +13,7 @@ public class Person {
     private String lastName;
     private String email;
     private String password;
-    private Boolean state;
+    private GuestState state;
 
 
     // Constructors
@@ -23,7 +25,7 @@ public class Person {
         this.email = email;
     }
 
-    public Person(int id, String name, String lastName, String email, String password, Boolean state) {
+    public Person(int id, String name, String lastName, String email, String password, GuestState state) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
