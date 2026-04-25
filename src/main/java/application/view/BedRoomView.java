@@ -1,133 +1,128 @@
 package application.view;
 
-import application.domain.Booking;
+import application.domain.BedRoom;
+import application.service.BedRoomStateSelector;
+import application.service.outputs.BedRoomService;
+import application.util.FormValidationUtil;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class BedRoomView {
 
+    private final BedRoomService bedRoomService;
 
-    Scanner sc = new Scanner(System.in);
 
 
-    private int roomId;
-    private String room;
-    private String roomType;
-    private double price;
-    private boolean state;
-
-    public BedRoomView(){
-
+    public BedRoomView(BedRoomService bedRoomService) {
+        this.bedRoomService = bedRoomService;
     }
 
-    public BedRoomView(int roomId, String room, String roomType, double price, boolean state) {
-        this.roomId = roomId;
-        this.room = room;
-        this.roomType = roomType;
-        this.price = price;
-        this.state = state;
-    }
+    public void createBedRoom() {
 
-    public BedRoomView(String room) {
-        this.room = room;
-    }
+        System.out.println("Crear habitación");
+        try {
+            // Recolecta datos
+            int roomId = FormValidationUtil.validateInt("Ingrese el Id de la habitación");
+            String room = FormValidationUtil.validateString("Ingrese el número de habitación");
+            int typeId = FormValidationUtil.validateInt("Ingrese el id del tipo");
+            double price = FormValidationUtil.validateDouble("Ingrese el precio");
+            String state = BedRoomStateSelector.bedRoomAddState();
 
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
-    }
-
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
-    public String getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public boolean isState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
-    }
-
-    public BedRoomView createBedRoom(BedRoomView bedRoom){
-
-
-        System.out.println("Ingrese el id de la habitación");
-        int id = sc.nextInt();
-        bedRoom.roomId = id;
-        sc.nextLine();
-
-        System.out.println("Ingrese el numero de la Habitacion");
-        String room = sc.nextLine();
-        bedRoom.room = room;
-
-        System.out.println("Seleccione el tipo de la habitación");
-        String roomType = sc.nextLine();
-        bedRoom.roomType = roomType;
-
-        System.out.println("Ingrese el precio por persona ");
-        double price = sc.nextDouble();
-        bedRoom.price = price;
-        sc.nextLine();
-
-        System.out.println("Seleccione el estado de la habitación");
-        boolean state = sc.nextBoolean();
-        bedRoom.state = state;
-
-
-
-        return bedRoom;
-    }
-
-    public List<BedRoomView> getAllBedRoom(List<BedRoomView> bedRoomList){
-        return bedRoomList;
-    }
-
-    public void getBedRoomById(int id , BedRoomView bedRoom){
-
-        if(this.roomId == id){
-            System.out.println("Id:" + bedRoom.roomId + "\n" +
-                    "Num Hab: " + bedRoom.room + "\n" +
-                    "Tipo hab: " + bedRoom.roomType + "\n" +
-                    "Precio" + bedRoom.price + "\n" +
-                    "Estado:"  + bedRoom.state + "\n");
-
-
-        }else{
-            System.out.println("Valide el id de la habitacion que esta consultando");
+            // Delega al servicio con los datos ya listos
+            BedRoom created = bedRoomService.createBedRoom(roomId, room, typeId, price, state);
+            System.out.println("Habitación creada: " + created.getRoomId());
+        }catch (IllegalArgumentException e){
+            System.out.println("Error: " + e.getMessage());
         }
 
     }
 
-    public void update(Booking productoEditado) {
+    public void getAllBedRooms() {
+        System.out.println("Mostrando todas las habitaciones...");
+
+        List<BedRoom> bedRoomList = bedRoomService.getAllBedRooms();
+
+        for (BedRoom bedroom : bedRoomList) {
+            System.out.println(bedroom.getRoomId() + " "
+                    + bedroom.getRoom() + " "
+                    + bedroom.getBedRoomType().getType() + " "  // ← aquí accedes al tipo agregado
+                    + bedroom.getPrice() + " "
+                    + bedroom.getState());
+        }
     }
 
-    public void delete(int id) {
+
+    public void getBedRoomById(){
+        System.out.println("Buscar habitación por Id");
+        BedRoom bedRoom = bedRoomService.getBedRoomById(FormValidationUtil
+                .validateInt("Ingrese el id de la Habitacion"))
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Habitacion no encontrada"
+                ));
+
+
+        System.out.println(bedRoom.getRoomId() + " "
+                + bedRoom.getRoom() + " "
+                + bedRoom.getBedRoomType().getType() + " "
+                + bedRoom.getPrice() + " "
+                + bedRoom.getState());
+
     }
+
+
+    public void updateBedRoom(){
+
+        int id = FormValidationUtil.validateInt("Ingrese el id de la habitación a Actualizar");
+
+        int option= FormValidationUtil.validateInt("1. Seleccione campo a actualizar" +
+                "1. id 2. Numero de hab 3. tipo de habitacion 4. Precio 5. Estado");
+
+        BedRoom currentBedRoom = bedRoomService.getBedRoomById(id).orElseThrow(()-> new IllegalArgumentException(
+                "Habitacion no existe"
+        ));
+
+        String room = currentBedRoom.getRoom();
+        int typeId = currentBedRoom.getBedRoomType().getIdType();
+        double price = currentBedRoom.getPrice();
+        String state = currentBedRoom.getState();
+
+        System.out.println("Habitación Actual" +"\n" +
+                "id" + id + "\n" +
+                "Numero" + room + "\n" +
+                "Tipo" + typeId + "\n" +
+                "Estado: " + state) ;
+
+
+        switch (option){
+
+            case 1:
+                room = FormValidationUtil.validateString("Actualizar habitación");
+                break;
+            case 2:
+                typeId = FormValidationUtil.validateInt("Ingrese el id del tipo a actulizar");
+                break;
+            case 3:
+                price= FormValidationUtil.validateDouble("Ingrese el nuevo precio");
+                break;
+            case 4:
+                state= BedRoomStateSelector.bedRoomAddState();
+                break;
+            default:
+                System.out.println("Seleccione una opción valida");
+
+        }
+
+
+
+        bedRoomService.updateBedRoom(id,room,typeId,price,state );
+
+    }
+
+
+    public void deleteBedRoomById(){
+        bedRoomService.deleteBedRoomById(FormValidationUtil.validateInt("Ingrese el id de habitación a eliminar"));
+    }
+
 
 
 }

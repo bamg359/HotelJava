@@ -1,46 +1,41 @@
 package application.domain;
 
-import java.util.List;
-import java.util.Scanner;
-
 public class Guest extends Person {
 
-    Scanner sc = new Scanner(System.in);
-    String origen;
-    String tipoGuest;
-
-    public Guest(int id, String name, String lastName, String email, String password, Boolean state, String origen, String tipoGuest) {
-        super(id, name, lastName, email, password, state);
-        this.origen = origen;
-        this.tipoGuest = tipoGuest;
-    }
+    private String origin;
+    private String guestType;
 
     public Guest() {
         super();
     }
 
-    public String getOrigen() {
-        return origen;
+    public Guest(int id, String name, String lastName, String email, String password, Boolean state, String origin, String guestType) {
+        super(id, name, lastName, email, password, state);
+        this.origin = origin;
+        this.guestType = guestType;
     }
 
-    public void setOrigen(String origen) {
-        this.origen = origen;
+    public String getOrigin() {
+        return origin;
     }
 
-    public String getTipoGuest() {
-        return tipoGuest;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
-    public void setTipoGuest(String tipoGuest) {
-        this.tipoGuest = tipoGuest;
+    public String getGuestType() {
+        return guestType;
+    }
+
+    public void setGuestType(String guestType) {
+        this.guestType = guestType;
     }
 
     @Override
     public String toString() {
         return "Guest{" +
-                "sc=" + sc +
-                ", origen='" + origen + '\'' +
-                ", tipoGuest='" + tipoGuest + '\'' +
-                '}';
+                "origin='" + origin + '\'' +
+                ", guestType='" + guestType + '\'' +
+                "} " + super.toString();
     }
 }

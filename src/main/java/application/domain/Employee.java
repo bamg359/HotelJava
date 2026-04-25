@@ -1,45 +1,42 @@
 package application.domain;
 
-import java.util.List;
-import java.util.Scanner;
+public class Employee extends Person{
 
-public class Employee extends Person {
+    private String position;
+    private double salary;
 
-    Scanner sc = new Scanner(System.in);
-    String rol;
-    double salario;
+    public Employee(){
 
-    public Employee(int id, String name, String lastName, String email, String password, Boolean state, String rol, double salario) {
-        super(id, name, lastName, email, password, state);
-        this.rol = rol;
-        this.salario = salario;
-    }
-
-    public Employee() {
         super();
     }
-    public String getRol() {
-        return rol;
+
+    public Employee(int id, String name, String lastName, String email, String password, Boolean state, String position, double salary) {
+        super(id, name, lastName, email, password, state);
+        this.position = position;
+        this.salary = salary;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public String getPosition() {
+        return position;
     }
 
-    public double getSalario() {
-        return salario;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public void setSalario(double salario) {
-        this.salario = salario;
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "sc=" + sc +
-                ", rol='" + rol + '\'' +
-                ", salario=" + salario +
+                "position='" + position + '\'' +
+                ", salary=" + salary +
                 '}';
     }
 }

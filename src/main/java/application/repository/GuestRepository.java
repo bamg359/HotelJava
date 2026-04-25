@@ -1,67 +1,39 @@
 package application.repository;
 
-import application.domain.Person;
+import application.domain.BedRoom;
+import application.domain.Guest;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class GuestRepository {
 
-    Scanner sc = new Scanner(System.in);
 
-    Person person;
-    String origen;
-    String tipoGuest;
+    List<Guest> guests = new ArrayList<>(
+            Arrays.asList(
+                   new Guest(1, "Maria", "Gomez","mg@mail.com", "123456" , true , "Medellín" , "Nuevo"),
+                   new Guest(2, "Juan", "Perez", "juan@mail.com","12345678", true , "Bogotá", "Frecuente")
+            )
+    );
 
-    public GuestRepository(Person person, String origen, String tipoGuest) {
-        this.person = person;
-        this.origen = origen;
-        this.tipoGuest = tipoGuest;
-    }
 
-    public GuestRepository() {
+    public Guest saveGuest(Guest guest){
 
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public String getOrigen() {
-        return origen;
-    }
-
-    public void setOrigen(String origen) {
-        this.origen = origen;
-    }
-
-    public String getTipoGuest() {
-        return tipoGuest;
-    }
-
-    public void setTipoGuest(String tipoGuest) {
-        this.tipoGuest = tipoGuest;
-    }
-
-    public GuestRepository create(GuestRepository guest) {
+        guests.add(guest);
 
         return guest;
+
     }
 
-    public List<GuestRepository> getAll(List<GuestRepository> guestList) {
-        return guestList;
+    public List<Guest> getAllGuests(){
+
+        for(Guest guest : guests){
+            System.out.println(guest);
+        }
+
+        return guests;
+
     }
 
-    public void getById(int id, GuestRepository guest) {
-    }
-
-    public void update(GuestRepository productoEditado) {
-    }
-
-    public void delete(int id) {
-    }
 }

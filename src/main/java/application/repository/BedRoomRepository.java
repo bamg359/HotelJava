@@ -1,133 +1,76 @@
 package application.repository;
 
-import application.domain.Booking;
+import application.domain.BedRoom;
+import application.domain.BedRoomType;
+import application.domain.enums.BedRoomEnums;
+import application.domain.enums.BedRoomState;
+import application.service.ports.BedRoomRepositoryPort;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Optional;
 
-public class BedRoomRepository {
-
-
-    Scanner sc = new Scanner(System.in);
+public class BedRoomRepository implements BedRoomRepositoryPort {
 
 
-    private int roomId;
-    private String room;
-    private String roomType;
-    private double price;
-    private boolean state;
-
-    public BedRoomRepository(){
-
-    }
-
-    public BedRoomRepository(int roomId, String room, String roomType, double price, boolean state) {
-        this.roomId = roomId;
-        this.room = room;
-        this.roomType = roomType;
-        this.price = price;
-        this.state = state;
-    }
-
-    public BedRoomRepository(String room) {
-        this.room = room;
-    }
-
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
-    }
-
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
-    public String getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public boolean isState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
-    }
-
-    public BedRoomRepository createBedRoom(BedRoomRepository bedRoom){
+    List<BedRoom> bedRooms = new ArrayList<>(
+            Arrays.asList(
+                    new BedRoom(1, "201", new BedRoomType(1,"Indivual"),120000, BedRoomState.DISPONIBLE.getDescription()),
+                    new BedRoom(2, "202", new BedRoomType(1,"Doble"),180000, BedRoomState.OCUPADA.getDescription() ),
+                    new BedRoom(3, "203", new BedRoomType(1,"Suite"),240000, BedRoomState.RESERVADA.getDescription())
 
 
-        System.out.println("Ingrese el id de la habitación");
-        int id = sc.nextInt();
-        bedRoom.roomId = id;
-        sc.nextLine();
+            ));
 
-        System.out.println("Ingrese el numero de la Habitacion");
-        String room = sc.nextLine();
-        bedRoom.room = room;
+    public BedRoom saveBedRoom(BedRoom bedRoom){
 
-        System.out.println("Seleccione el tipo de la habitación");
-        String roomType = sc.nextLine();
-        bedRoom.roomType = roomType;
-
-        System.out.println("Ingrese el precio por persona ");
-        double price = sc.nextDouble();
-        bedRoom.price = price;
-        sc.nextLine();
-
-        System.out.println("Seleccione el estado de la habitación");
-        boolean state = sc.nextBoolean();
-        bedRoom.state = state;
-
-
+        bedRooms.add(bedRoom);
 
         return bedRoom;
+
     }
 
-    public List<BedRoomRepository> getAllBedRoom(List<BedRoomRepository> bedRoomList){
-        return bedRoomList;
-    }
+    @Override
+    public BedRoom updateBedRoom( int id, BedRoom bedRoom) {
 
-    public void getBedRoomById(int id , BedRoomRepository bedRoom){
-
-        if(this.roomId == id){
-            System.out.println("Id:" + bedRoom.roomId + "\n" +
-                    "Num Hab: " + bedRoom.room + "\n" +
-                    "Tipo hab: " + bedRoom.roomType + "\n" +
-                    "Precio" + bedRoom.price + "\n" +
-                    "Estado:"  + bedRoom.state + "\n");
-
-
-        }else{
-            System.out.println("Valide el id de la habitacion que esta consultando");
+        for(int i = 0; i< bedRooms.size(); i++){
+            if(bedRooms.get(i).getRoomId() == id){
+                bedRooms.set(i, bedRoom);
+                return bedRoom;
+            }
         }
+        throw new IllegalArgumentException("Habitación con Id " + id + "no encontrada");
+    }
+
+    @Override
+    public Optional<BedRoom> findBedRoomById(int id) {
+
+        for(BedRoom bedroom: bedRooms){
+            if(bedroom.getRoomId() == id){
+                return Optional.of(bedroom);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public List<BedRoom> findAllBedRooms() {
+
+        return bedRooms;
 
     }
 
-    public void update(Booking productoEditado) {
+    @Override
+    public void deleteBedRoomById(int id) {
+
+        for(BedRoom bedroom: bedRooms){
+            if(bedroom.getRoomId() == id){
+                bedRooms.remove(bedroom);
+                System.out.println("Habitacion con id " + id + " ha sido eliminada.");
+            }
+        }
+         System.out.println("Habitacion con id " + id + " no encontrada.");
+
     }
-
-    public void delete(int id) {
-    }
-
-
 }

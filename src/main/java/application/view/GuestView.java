@@ -1,24 +1,34 @@
 package application.view;
 
 import application.domain.Guest;
-import application.service.GuestServiceImplementation;
+import application.service.outputs.GuestAdminService;
+import application.service.outputs.GuestService;
 
 public class GuestView {
 
-    private final GuestServiceImplementation guestServiceImplementation;
-
+    private final GuestService guestService;
+    private final GuestAdminService guestAdminService;
     private final Guest guest;
 
-    public GuestView(GuestServiceImplementation guestServiceImplementation, Guest guest) {
-        this.guestServiceImplementation = guestServiceImplementation;
+    public GuestView(GuestService guestService, Guest guest , GuestAdminService guestAdminService) {
+        this.guestAdminService = guestAdminService;
+        this.guestService = guestService;
         this.guest = guest;
     }
 
-
     public void createGuest(){
 
-        guestServiceImplementation.createGuest(guest);
+
+        guestService.createGuest(guest);
 
     }
+
+    public void getAllGuests(){
+        guestAdminService.getGuests();
+    }
+
+
+
+
 
 }
