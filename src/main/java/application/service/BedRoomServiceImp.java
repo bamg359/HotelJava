@@ -21,28 +21,44 @@ public class BedRoomServiceImp implements BedRoomService {
     }
 
     @Override
-    public BedRoom createBedRoom(BedRoom bedRoom) {
-        BedRoomType type = bedRoomTypeRepositoryPort.findById(bedRoom.getBedRoomType().getIdType())
-                .orElseThrow(() -> new IllegalArgumentException("Tipo de habitación no encontrado"));
-        bedRoom.setBedRoomType(type);
-        return bedRoomRepositoryPort.save(bedRoom);
+    public BedRoom createBedRoom( BedRoom bedRoom) {
+        if (bedRoomRepositoryPort.findById(bedRoom.getRoomId()).isPresent()) {
+            throw new IllegalArgumentException("La habitación con ID " + bedRoom.getRoomId() + " ya existe.");
+        }
+
+
+        BedRoomType officialType = findOfficialType(bedRoom.getBedRoomType().getIdType());
+        bedRoom.setBedRoomType(officialType);
+
+
+        return bedRoomRepositoryPort.saveBedRoom(bedRoom);
     }
+
 
     @Override
-    public BedRoom updateBedRoom(int id, BedRoom bedRoom) {
-        BedRoom existing = bedRoomRepositoryPort.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Habitación no encontrada"));
+    public BedRoom updateBedRoom(BedRoom bedRoom) {
+        if (bedRoomRepositoryPort.findById(bedRoom.getRoomId()).isEmpty()) {
+            throw new IllegalArgumentException("No se puede actualizar: la habitación no existe.");
+        }
 
-        BedRoomType type = bedRoomTypeRepositoryPort.findById(bedRoom.getBedRoomType().getIdType())
-                .orElseThrow(() -> new IllegalArgumentException("Tipo de habitación no encontrado"));
 
-        existing.setRoom(bedRoom.getRoom());
-        existing.setBedRoomType(type);
-        existing.setPrice(bedRoom.getPrice());
-        existing.setState(bedRoom.getState());
+        BedRoomType officialType = findOfficialType(bedRoom.getBedRoomType().getIdType());
+        bedRoom.setBedRoomType(officialType);
 
-        return bedRoomRepositoryPort.update(id, existing);
+        return bedRoomRepositoryPort.updateBedRoom(bedRoom);
     }
+
+
+    private BedRoomType findOfficialType(int typeId) {
+        return bedRoomTypeRepositoryPort.findById(typeId)
+                .orElseThrow(() -> new IllegalArgumentException("Tipo de habitación no encontrado"));
+    }
+
+
+
+
+
+
 
     @Override
     public Optional<BedRoom> getBedRoomById(int id) {
@@ -56,6 +72,6 @@ public class BedRoomServiceImp implements BedRoomService {
 
     @Override
     public void deleteBedRoomById(int id) {
-        bedRoomRepositoryPort.deleteById(id);
+        bedRoomRepositoryPort.deleteBedRoomById(id);
     }
 }

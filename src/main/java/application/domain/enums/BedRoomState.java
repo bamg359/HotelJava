@@ -16,14 +16,6 @@ public enum BedRoomState {
         return description;
     }
 
-    public static BedRoomState fromOption(int option) {
-        return switch (option) {
-            case 1 -> DISPONIBLE;
-            case 2 -> OCUPADA;
-            case 3 -> RESERVADA;
-            case 4 -> MANTENIMIENTO;
-            default -> throw new IllegalArgumentException("Opción de estado inválida");
-        };
-    }
+
 }
 

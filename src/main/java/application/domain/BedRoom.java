@@ -1,24 +1,29 @@
 package application.domain;
 
+import application.domain.enums.BedRoomState;
+
 public class BedRoom {
 
     private int roomId;
     private String room;
     private BedRoomType bedRoomType;
     private double price;
-    private String state;
+    private BedRoomState bedRoomState ;
 
     public BedRoom() {}
 
-    public BedRoom(int roomId, String room, BedRoomType bedRoomType, double price, String state) {
+    public BedRoom(int roomId, String room, BedRoomType bedRoomType, double price, BedRoomState state) {
         this.roomId = roomId;
         this.room = room;
         this.bedRoomType = bedRoomType;
         this.price = price;
-        this.state = state;
+        this.bedRoomState = state;
     }
 
-    // --- Getters y Setters ---
+    public BedRoom(String room) {
+        this.room = room;
+    }
+
     public int getRoomId() {
         return roomId;
     }
@@ -51,12 +56,12 @@ public class BedRoom {
         this.price = price;
     }
 
-    public String getState() {
-        return state;
+    public BedRoomState getBedRoomState() {
+        return bedRoomState;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setBedRoomState(BedRoomState bedRoomState) {
+        this.bedRoomState = bedRoomState;
     }
 }
 

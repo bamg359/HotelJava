@@ -2,6 +2,7 @@ package application.repository;
 
 import application.domain.BedRoom;
 import application.domain.BedRoomType;
+import application.domain.enums.BedRoomState;
 import application.service.ports.BedRoomRepositoryPort;
 
 import java.util.ArrayList;
@@ -13,9 +14,9 @@ public class BedRoomRepository implements BedRoomRepositoryPort {
     private final List<BedRoom> bedRooms = new ArrayList<>();
 
     public BedRoomRepository() {
-        bedRooms.add(new BedRoom(201, "201", new BedRoomType(1,"Single"),120000,"DISPONIBLE"));
-        bedRooms.add(new BedRoom(202, "202", new BedRoomType(2,"Doble"),180000,"OCUPADA"));
-        bedRooms.add(new BedRoom(203, "203", new BedRoomType(3,"Suite"),240000,"RESERVADA"));
+        bedRooms.add(new BedRoom(201, "201", new BedRoomType(1,"Single"),120000, BedRoomState.RESERVADA));
+        bedRooms.add(new BedRoom(202, "202", new BedRoomType(2,"Doble"),180000,BedRoomState.MANTENIMIENTO));
+        bedRooms.add(new BedRoom(203, "203", new BedRoomType(3,"Suite"),240000,BedRoomState.DISPONIBLE));
     }
 
     @Override
