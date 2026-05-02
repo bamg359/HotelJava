@@ -20,12 +20,8 @@ public class EmployeeView {
         String lastName = FormValidationUtil.validateString("Ingrese el apellido");
         String email = FormValidationUtil.validateString("Ingrese el email");
         String phone = FormValidationUtil.validateString("Ingrese el teléfono");
+        PersonState state = FormValidationUtil.validatePersonState("Seleccione el estado del huésped");
 
-        System.out.println("--- ESTADO DEL EMPLEADO ---");
-        System.out.println("1. ACTIVO");
-        System.out.println("2. INACTIVO");
-        int stateOption = FormValidationUtil.validateInt("Ingrese el número del estado");
-        PersonState state = PersonState.fromOption(stateOption);
 
         String position = FormValidationUtil.validateString("Ingrese el cargo");
         double salary = FormValidationUtil.validateDouble("Ingrese el salario");
@@ -49,12 +45,7 @@ public class EmployeeView {
         employee.setEmail(FormValidationUtil.validateString("Ingrese el nuevo email"));
         employee.setPhone(FormValidationUtil.validateString("Ingrese el nuevo teléfono"));
 
-        System.out.println("--- ESTADO DEL EMPLEADO ---");
-        System.out.println("1. ACTIVO");
-        System.out.println("2. INACTIVO");
-        int stateOption = FormValidationUtil.validateInt("Ingrese el número del estado");
-        employee.setState(PersonState.fromOption(stateOption));
-
+        employee.setState(FormValidationUtil.validatePersonState("Seleccione el nuevo estado"));
         employee.setPosition(FormValidationUtil.validateString("Ingrese el nuevo cargo"));
         employee.setSalary(FormValidationUtil.validateDouble("Ingrese el nuevo salario"));
 
