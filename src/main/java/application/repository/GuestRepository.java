@@ -1,39 +1,52 @@
 package application.repository;
 
-import application.domain.BedRoom;
 import application.domain.Guest;
+import application.service.ports.GuestRepositoryPort;
+import application.service.ports.GuestAdminRepositoryPort;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-public class GuestRepository {
+public class GuestRepository implements GuestRepositoryPort, GuestAdminRepositoryPort {
 
+    private final List<Guest> guests = new ArrayList<>();
 
-    List<Guest> guests = new ArrayList<>(
-            Arrays.asList(
-                   new Guest(1, "Maria", "Gomez","mg@mail.com", "123456" , true , "Medellín" , "Nuevo"),
-                   new Guest(2, "Juan", "Perez", "juan@mail.com","12345678", true , "Bogotá", "Frecuente")
-            )
-    );
-
-
-    public Guest saveGuest(Guest guest){
-
-        guests.add(guest);
-
-        return guest;
-
-    }
-
-    public List<Guest> getAllGuests(){
-
-        for(Guest guest : guests){
-            System.out.println(guest);
-        }
-
+    @Override
+    public List<Guest> getAllGuests() {
         return guests;
-
     }
 
+    @Override
+    public boolean deleteById(int id) {
+        return guests.removeIf(g -> g.getId() == id); // ✅ devuelve true si eliminó
+    }
+
+    // Métodos de GuestRepositoryPort
+    @Override
+    public Optional<Guest> findById(int id) {
+        return guests.stream().filter(g -> g.getId() == id).findFirst();
+    }
+
+    @Override
+    public Guest save(Guest guest) {
+        guests.add(guest);
+        return guest;
+    }
+
+    @Override
+    public Guest update(Guest guest) {
+        for (int i = 0; i < guests.size(); i++) {
+            if (guests.get(i).getId() == guest.getId()) {
+                guests.set(i, guest);
+                return guest;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Guest> findAll() {
+        return guests;
+    }
 }

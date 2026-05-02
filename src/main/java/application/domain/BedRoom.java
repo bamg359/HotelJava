@@ -1,40 +1,28 @@
 package application.domain;
 
-import java.util.Scanner;
+import application.domain.enums.BedRoomState;
 
 public class BedRoom {
-
-
-    Scanner sc = new Scanner(System.in);
-
 
     private int roomId;
     private String room;
     private BedRoomType bedRoomType;
     private double price;
-    private String state;
+    private BedRoomState bedRoomState;
 
-
-    // Constructors
-
-    public BedRoom(){
-
+    public BedRoom() {
     }
 
-    public BedRoom(int roomId, String room,BedRoomType type,double price, String state) {
+    public BedRoom(int roomId, String room, BedRoomType bedRoomType, double price, BedRoomState state) {
         this.roomId = roomId;
         this.room = room;
-        this.bedRoomType = type;
+        this.bedRoomType = bedRoomType;
         this.price = price;
-        this.state = state;
+        this.bedRoomState = state;
     }
-
     public BedRoom(String room) {
         this.room = room;
     }
-
-    // Getter and Setters
-
 
     public int getRoomId() {
         return roomId;
@@ -52,7 +40,13 @@ public class BedRoom {
         this.room = room;
     }
 
+    public BedRoomType getBedRoomType() {
+        return bedRoomType;
+    }
 
+    public void setBedRoomType(BedRoomType bedRoomType) {
+        this.bedRoomType = bedRoomType;
+    }
 
     public double getPrice() {
         return price;
@@ -62,24 +56,22 @@ public class BedRoom {
         this.price = price;
     }
 
-    public String getState() {
-        return state;
+    public BedRoomState getBedRoomState() {
+        return bedRoomState;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setBedRoomState(BedRoomState bedRoomState) {
+        this.bedRoomState = bedRoomState;
     }
 
-    public BedRoomType getBedRoomType() {
-        return bedRoomType;
+    @Override
+    public String toString() {
+        return "BedRoom{" +
+                "roomId=" + roomId +
+                ", room='" + room + '\'' +
+                ", bedRoomType=" + bedRoomType.getType() +
+                ", price=" + price +
+                ", state=" + bedRoomState +
+                '}';
     }
-
-    public void setBedRoomType(BedRoomType bedRoomType) {
-        this.bedRoomType = bedRoomType;
-    }
-
-    // Methods
-
-
-
 }

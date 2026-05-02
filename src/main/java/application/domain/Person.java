@@ -1,98 +1,51 @@
 package application.domain;
 
-import java.util.List;
+import application.domain.enums.PersonState;
 
-public class Person {
-
-    // Person Atributes
-
+public abstract class Person {
     private int id;
-    private String name;
+    private String firstName;
     private String lastName;
     private String email;
-    private String password;
-    private Boolean state;
+    private String phone;
+    private PersonState state; // ahora es enum
 
+    public Person() {}
 
-    // Constructors
-
-    public Person() {
-    }
-
-    public Person(String email){
-        this.email = email;
-    }
-
-    public Person(int id, String name, String lastName, String email, String password, Boolean state) {
+    public Person(int id, String firstName, String lastName, String email, String phone, PersonState state) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.phone = phone;
         this.state = state;
     }
 
-    // Getters and Setters
+    // Getters y setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public int getId(){
-        return id;
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+
+    public PersonState getState() { return state; }
+    public void setState(PersonState state) { this.state = state; }
+
+    // Métodos auxiliares
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
-    public void setId(int id){
-        this.id = id;
+    public String getStateText() {
+        return state.getDescription(); // devuelve "ACTIVO" o "INACTIVO"
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean getState() {
-        return state;
-    }
-
-    public void setState(Boolean state) {
-        this.state = state;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", state=" + state +
-                '}';
-    }
-
-
 }

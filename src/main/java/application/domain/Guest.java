@@ -1,41 +1,32 @@
 package application.domain;
 
+import application.domain.enums.PersonState;
+
 public class Guest extends Person {
+    private String city;
 
-    private String origin;
-    private String guestType;
+    public Guest() {}
 
-    public Guest() {
-        super();
+    // Constructor completo usando atributos del padre y propios
+    public Guest(int id, String firstName, String lastName, String email, String phone,
+                 PersonState state, String city) {
+        super(id, firstName, lastName, email, phone, state); // atributos del padre
+        this.city = city; // atributo propio
     }
 
-    public Guest(int id, String name, String lastName, String email, String password, Boolean state, String origin, String guestType) {
-        super(id, name, lastName, email, password, state);
-        this.origin = origin;
-        this.guestType = guestType;
+    // Constructor intermedio (sin ciudad)
+    public Guest(int id, String firstName, String lastName, String email, String phone, PersonState state) {
+        super(id, firstName, lastName, email, phone, state);
+        this.city = null; // valor por defecto
     }
 
-    public String getOrigin() {
-        return origin;
+    // Constructor reducido (solo ID, nombre y apellido)
+    public Guest(int id, String firstName, String lastName) {
+        super(id, firstName, lastName, null, null, PersonState.ACTIVE);
+        this.city = null; // sin ciudad por defecto
     }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public String getGuestType() {
-        return guestType;
-    }
-
-    public void setGuestType(String guestType) {
-        this.guestType = guestType;
-    }
-
-    @Override
-    public String toString() {
-        return "Guest{" +
-                "origin='" + origin + '\'' +
-                ", guestType='" + guestType + '\'' +
-                "} " + super.toString();
-    }
+    // --- Getters y Setters propios ---
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 }

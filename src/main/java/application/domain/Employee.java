@@ -1,36 +1,38 @@
 package application.domain;
 
-public class Employee extends Person{
+import application.domain.enums.PersonState;
 
+public class Employee extends Person {
     private String position;
     private double salary;
 
-    public Employee(){
+    public Employee() {}
 
-        super();
-    }
 
-    public Employee(int id, String name, String lastName, String email, String password, Boolean state, String position, double salary) {
-        super(id, name, lastName, email, password, state);
+    public Employee(int id, String firstName, String lastName, String email, String phone,
+                    PersonState state, String position, double salary) {
+        super(id, firstName, lastName, email, phone, state);
         this.position = position;
         this.salary = salary;
     }
+
+
+
+
 
     public String getPosition() {
-        return position;
-    }
+        return position; }
+
 
     public void setPosition(String position) {
-        this.position = position;
-    }
+        this.position = position; }
 
     public double getSalary() {
-        return salary;
-    }
+        return salary; }
+
 
     public void setSalary(double salary) {
-        this.salary = salary;
-    }
+        this.salary = salary; }
 
     @Override
     public String toString() {

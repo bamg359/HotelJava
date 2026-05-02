@@ -1,84 +1,63 @@
 package application.util;
 
-import java.util.InputMismatchException;
+import application.domain.enums.PersonState;
 import java.util.Scanner;
 
 public class FormValidationUtil {
 
     private final static Scanner sc = new Scanner(System.in);
 
-    public static int validateInt(String prompt){
-
-        while(true){
-
-            try{
-
+    public static int validateInt(String prompt) {
+        while (true) {
+            try {
                 System.out.println(prompt);
-                int value = sc.nextInt();
-                sc.nextLine(); // Limpiar el buffer
-                return value;
-
-            }catch (InputMismatchException e){
+                String input = sc.nextLine().trim();
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
                 System.out.println("Entrada no válida. Por favor, ingrese un número entero.");
-                sc.nextLine(); // Limpiar el buffer
             }
         }
-
     }
 
-
-    public static double validateDouble(String prompt){
-
-        while(true){
-
-            try{
-
+    public static double validateDouble(String prompt) {
+        while (true) {
+            try {
                 System.out.println(prompt);
-                double value = sc.nextDouble();
-                sc.nextLine(); // Limpiar el buffer
-                return value;
-
-            }catch (InputMismatchException e){
+                String input = sc.nextLine().trim();
+                return Double.parseDouble(input);
+            } catch (NumberFormatException e) {
                 System.out.println("Entrada no válida. Por favor, ingrese un número decimal.");
-                sc.nextLine(); // Limpiar el buffer
             }
         }
-
     }
 
-    public static boolean validateBoolean(String prompt){
-
-        while(true){
-
-            try{
-
-                System.out.println(prompt);
-                boolean value = sc.nextBoolean();
-                sc.nextLine(); // Limpiar el buffer
+    public static String validateString(String prompt) {
+        while (true) {
+            System.out.println(prompt);
+            String value = sc.nextLine().trim();
+            if (!value.isEmpty()) {
                 return value;
-
-            }catch (InputMismatchException e){
-                System.out.println("Entrada no válida. Por favor, ingrese un valor lógico.");
-                sc.nextLine(); // Limpiar el buffer
             }
+            System.out.println("Entrada no válida. El texto no puede estar vacío. Intente de nuevo.");
         }
-
     }
 
-
-    public static String validateString(String prompt) throws InputMismatchException{
-
-        while(true){
-
-                System.out.println(prompt);
-                String value = sc.nextLine().trim();
-                if(!value.isEmpty()){
-                    return value;
-                }
-
-                throw new InputMismatchException ("Entrada no válida. Por favor, ingrese un número entero.");
-
+    // Nuevo método para PersonState
+    public static PersonState validatePersonState(String prompt) {
+        while (true) {
+            System.out.println(prompt);
+            System.out.println("1. ACTIVO");
+            System.out.println("2. INACTIVO");
+            String input = sc.nextLine().trim();
+            if (input.equals("1")) {
+                return PersonState.ACTIVE;
+            } else if (input.equals("2")) {
+                return PersonState.INACTIVE;
             }
+            System.out.println("Entrada no válida. Por favor, ingrese 1 para ACTIVO o 2 para INACTIVO.");
         }
-
+    }
 }
+
+
+
