@@ -1,5 +1,7 @@
 package application.domain;
 
+import application.domain.enums.PersonState;
+
 public class Employee extends Person {
     private String position;
     private double salary;
@@ -8,7 +10,7 @@ public class Employee extends Person {
 
 
     public Employee(int id, String firstName, String lastName, String email, String phone,
-                   boolean state, String position, double salary) {
+                    PersonState state, String position, double salary) {
         super(id, firstName, lastName, email, phone, state);
         this.position = position;
         this.salary = salary;

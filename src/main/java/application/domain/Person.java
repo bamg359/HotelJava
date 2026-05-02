@@ -1,16 +1,18 @@
 package application.domain;
 
+import application.domain.enums.PersonState;
+
 public abstract class Person {
     private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
-    private boolean state;
+    private PersonState state; // ahora es enum
 
     public Person() {}
 
-    public Person(int id, String firstName, String lastName, String email, String phone, boolean state) {
+    public Person(int id, String firstName, String lastName, String email, String phone, PersonState state) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,8 +37,8 @@ public abstract class Person {
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
-    public boolean getState() { return state; }
-    public void setState(boolean state) { this.state = state; }
+    public PersonState getState() { return state; }
+    public void setState(PersonState state) { this.state = state; }
 
     // Métodos auxiliares
     public String getFullName() {
@@ -44,7 +46,6 @@ public abstract class Person {
     }
 
     public String getStateText() {
-        return state ? "ACTIVO" : "INACTIVO";
+        return state.getDescription(); // devuelve "ACTIVO" o "INACTIVO"
     }
 }
-

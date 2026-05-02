@@ -1,6 +1,7 @@
 package application.view;
 
 import application.domain.Guest;
+import application.domain.enums.PersonState;
 import application.service.outputs.GuestService;
 import application.service.outputs.GuestAdminService;
 import application.util.FormValidationUtil;
@@ -11,7 +12,7 @@ public class GuestView {
     private final GuestService guestService;
     private final GuestAdminService guestAdminService;
 
-    // Constructor con ambos servicios
+    // Constructor que recibe ambos servicios
     public GuestView(GuestService guestService, GuestAdminService guestAdminService) {
         this.guestService = guestService;
         this.guestAdminService = guestAdminService;
@@ -23,12 +24,12 @@ public class GuestView {
         String lastName = FormValidationUtil.validateString("Ingrese el apellido");
         String email = FormValidationUtil.validateString("Ingrese el email");
         String phone = FormValidationUtil.validateString("Ingrese el teléfono");
-        boolean state = FormValidationUtil.validateBoolean("¿Está activo? (true/false)");
+        PersonState state = FormValidationUtil.validatePersonState("Seleccione el estado del huésped");
         String city = FormValidationUtil.validateString("Ingrese la ciudad");
 
         Guest guest = new Guest(id, firstName, lastName, email, phone, state, city);
         guestService.createGuest(guest);
-        System.out.println("✅ Huésped creado correctamente.");
+        System.out.println("Huésped creado correctamente.");
     }
 
     public void updateGuest() {
@@ -36,7 +37,7 @@ public class GuestView {
         Guest guest = guestService.getGuestById(id).orElse(null);
 
         if (guest == null) {
-            System.out.println("❌ Huésped no encontrado.");
+            System.out.println("Huésped no encontrado.");
             return;
         }
 
@@ -44,11 +45,11 @@ public class GuestView {
         guest.setLastName(FormValidationUtil.validateString("Ingrese el nuevo apellido"));
         guest.setEmail(FormValidationUtil.validateString("Ingrese el nuevo email"));
         guest.setPhone(FormValidationUtil.validateString("Ingrese el nuevo teléfono"));
-        guest.setState(FormValidationUtil.validateBoolean("¿Está activo? (true/false)"));
+        guest.setState(FormValidationUtil.validatePersonState("Seleccione el nuevo estado"));
         guest.setCity(FormValidationUtil.validateString("Ingrese la nueva ciudad"));
 
-        guestService.updateGuest(id, guest);
-        System.out.println("✅ Huésped actualizado correctamente.");
+        guestService.updateGuest(guest);
+        System.out.println("Huésped actualizado correctamente.");
     }
 
     public void consultGuestById() {
@@ -56,7 +57,7 @@ public class GuestView {
         Guest guest = guestService.getGuestById(id).orElse(null);
 
         if (guest == null) {
-            System.out.println("❌ Huésped no encontrado.");
+            System.out.println("Huésped no encontrado.");
             return;
         }
 
@@ -65,35 +66,30 @@ public class GuestView {
         System.out.println("Nombre: " + guest.getFullName());
         System.out.println("Email: " + guest.getEmail());
         System.out.println("Teléfono: " + guest.getPhone());
-        System.out.println("Estado: " + (guest.getState() ? "Activo" : "Inactivo"));
+        System.out.println("Estado: " + guest.getState().getDescription());
         System.out.println("Ciudad: " + guest.getCity());
     }
 
     public void listAllGuests() {
-        List<Guest> guests = guestService.getAllGuests();
-        if (guests.isEmpty()) {
-            System.out.println("No hay huéspedes registrados.");
-        } else {
-            System.out.println("--- LISTA DE HUÉSPEDES ---");
-            guests.forEach(g -> System.out.println(
-                    g.getId() + " " + g.getFullName() +
-                            " Email: " + g.getEmail() +
-                            " Teléfono: " + g.getPhone() +
-                            " Estado: " + (g.getState() ? "Activo" : "Inactivo") +
-                            " Ciudad: " + g.getCity()
-            ));
-        }
+        List<Guest> guests = guestAdminService.getAllGuests(); // aquí usamos el admin
+        System.out.println("--- LISTA DE HUÉSPEDES ---");
+        guests.forEach(g -> System.out.println(
+                g.getId() + " " + g.getFullName() +
+                        " Email: " + g.getEmail() +
+                        " Teléfono: " + g.getPhone() +
+                        " Estado: " + g.getState().getDescription() +
+                        " Ciudad: " + g.getCity()
+        ));
     }
 
     public void deleteGuest() {
         int id = FormValidationUtil.validateInt("Ingrese el ID del huésped a eliminar");
-        boolean deleted = guestAdminService.deleteGuest(id);
+        boolean deleted = guestAdminService.deleteGuest(id); // aquí usamos el admin
 
         if (deleted) {
-            System.out.println("✅ Huésped eliminado correctamente.");
+            System.out.println("Huésped eliminado correctamente.");
         } else {
-            System.out.println("❌ Huésped no encontrado.");
+            System.out.println("Huésped no encontrado.");
         }
     }
-
 }

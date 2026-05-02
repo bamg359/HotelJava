@@ -1,5 +1,6 @@
 package application.util;
 
+import application.domain.enums.PersonState;
 import java.util.Scanner;
 
 public class FormValidationUtil {
@@ -30,17 +31,6 @@ public class FormValidationUtil {
         }
     }
 
-    public static boolean validateBoolean(String prompt) {
-        while (true) {
-            System.out.println(prompt + " (true/false)");
-            String input = sc.nextLine().trim().toLowerCase();
-            if (input.equals("true") || input.equals("false")) {
-                return Boolean.parseBoolean(input);
-            }
-            System.out.println("Entrada no válida. Por favor, ingrese 'true' o 'false'.");
-        }
-    }
-
     public static String validateString(String prompt) {
         while (true) {
             System.out.println(prompt);
@@ -49,6 +39,22 @@ public class FormValidationUtil {
                 return value;
             }
             System.out.println("Entrada no válida. El texto no puede estar vacío. Intente de nuevo.");
+        }
+    }
+
+    // Nuevo método para PersonState
+    public static PersonState validatePersonState(String prompt) {
+        while (true) {
+            System.out.println(prompt);
+            System.out.println("1. ACTIVO");
+            System.out.println("2. INACTIVO");
+            String input = sc.nextLine().trim();
+            if (input.equals("1")) {
+                return PersonState.ACTIVE;
+            } else if (input.equals("2")) {
+                return PersonState.INACTIVE;
+            }
+            System.out.println("Entrada no válida. Por favor, ingrese 1 para ACTIVO o 2 para INACTIVO.");
         }
     }
 }

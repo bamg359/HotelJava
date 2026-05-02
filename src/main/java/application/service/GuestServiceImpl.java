@@ -22,13 +22,14 @@ public class GuestServiceImpl implements GuestService {
     }
 
     @Override
-    public Guest updateGuest(int id, Guest guest) {
-        Optional<Guest> existing = guestRepository.findById(id);
+    public Guest updateGuest(Guest guest) {
+        Optional<Guest> existing = guestRepository.findById(guest.getId());
         if (existing.isPresent()) {
-            return guestRepository.update(guest);
+            return guestRepository.update(guest); // ahora sí existe el objeto
         }
         return null;
     }
+
 
     @Override
     public Optional<Guest> getGuestById(int id) {
