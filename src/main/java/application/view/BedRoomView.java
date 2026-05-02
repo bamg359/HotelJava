@@ -41,7 +41,7 @@ public class BedRoomView {
         } while (option != 0);
     }
 
-    private void showRoomTypes() {
+    public void showRoomTypes() {
         System.out.println("--- TIPOS DE HABITACIÓN ---");
         System.out.println("1. Single");
         System.out.println("2. Doble");
@@ -49,7 +49,7 @@ public class BedRoomView {
         System.out.println("4. Grupal");
     }
 
-    private void showRoomStates() {
+    public void showRoomStates() {
         System.out.println("--- ESTADOS DE HABITACIÓN ---");
         System.out.println("1. DISPONIBLE");
         System.out.println("2. OCUPADA");
@@ -57,7 +57,7 @@ public class BedRoomView {
         System.out.println("4. MANTENIMIENTO");
     }
 
-    private void createBedRoom() {
+    public void createBedRoom() {
         int id = FormValidationUtil.validateInt("Ingrese el ID de la habitación");
         String room = FormValidationUtil.validateString("Ingrese el nombre de la habitación");
 
@@ -68,51 +68,51 @@ public class BedRoomView {
 
         showRoomStates();
         int stateOption = FormValidationUtil.validateInt("Ingrese el número del estado");
-        String state = BedRoomState.fromOption(stateOption).getDescription();
-
+        BedRoomState state = BedRoomState.fromOption(stateOption); // devuelve el enum
         BedRoom bedRoom = new BedRoom(id, room, new BedRoomType(typeId, ""), price, state);
         bedRoomService.createBedRoom(bedRoom);
         System.out.println("Habitación creada correctamente.");
     }
 
 
-    private void updateBedRoom() {
+    public void updateBedRoom() {
         int id = FormValidationUtil.validateInt("Ingrese el ID de la habitación a actualizar");
         String room = FormValidationUtil.validateString("Ingrese el nombre actualizado");
 
         showRoomTypes();
         int typeId = FormValidationUtil.validateInt("Ingrese el ID del tipo de habitación actualizado");
+        BedRoomType type = new BedRoomType(typeId, "");
 
         double price = FormValidationUtil.validateDouble("Ingrese el precio actualizado");
 
         showRoomStates();
         int stateOption = FormValidationUtil.validateInt("Ingrese el número del estado");
-        String state = BedRoomState.fromOption(stateOption).getDescription();
+        BedRoomState state = BedRoomState.fromOption(stateOption);
 
-
-        BedRoom bedRoom = new BedRoom(id, room, new BedRoomType(typeId, ""), price, state);
-        bedRoomService.updateBedRoom(id, bedRoom);
+        BedRoom bedRoom = new BedRoom(id, room, type, price, state);
+        bedRoomService.updateBedRoom(bedRoom); // ✅ pasa el objeto completo
         System.out.println("Habitación actualizada correctamente.");
     }
 
-    private void getBedRoomById() {
+
+    public void getBedRoomById() {
         int id = FormValidationUtil.validateInt("Ingrese el ID de la habitación a consultar");
         Optional<BedRoom> bedRoom = bedRoomService.getBedRoomById(id);
         bedRoom.ifPresentOrElse(
                 b -> System.out.println("Habitación encontrada: " + b.getRoomId() + " " +
-                        b.getBedRoomType().getType() + " Precio: $" + b.getPrice() + " Estado: " + b.getState()),
+                        b.getBedRoomType().getType() + " Precio: $" + b.getPrice() + " Estado: " + b.getBedRoomState()),
                 () -> System.out.println("No se encontró la habitación con ID " + id)
         );
     }
 
-    private void listAllBedRooms() {
+    public void listAllBedRooms() {
         List<BedRoom> bedRooms = bedRoomService.getAllBedRooms();
         System.out.println("--- LISTA DE HABITACIONES ---");
         bedRooms.forEach(b -> System.out.println(b.getRoomId() + " " +
-                b.getBedRoomType().getType() + " Precio: $" + b.getPrice() + " Estado: " + b.getState()));
+                b.getBedRoomType().getType() + " Precio: $" + b.getPrice() + " Estado: " + b.getBedRoomState()));
     }
 
-    private void deleteBedRoom() {
+   public void deleteBedRoom() {
         int id = FormValidationUtil.validateInt("Ingrese el ID de la habitación a eliminar");
         bedRoomService.deleteBedRoomById(id);
         System.out.println("Habitación eliminada correctamente.");

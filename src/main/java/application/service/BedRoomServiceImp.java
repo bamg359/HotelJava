@@ -22,7 +22,7 @@ public class BedRoomServiceImp implements BedRoomService {
 
     @Override
     public BedRoom createBedRoom( BedRoom bedRoom) {
-        if (bedRoomRepositoryPort.findById(bedRoom.getRoomId()).isPresent()) {
+        if (bedRoomRepositoryPort.findBedRoomById(bedRoom.getRoomId()).isPresent()) {
             throw new IllegalArgumentException("La habitación con ID " + bedRoom.getRoomId() + " ya existe.");
         }
 
@@ -37,7 +37,7 @@ public class BedRoomServiceImp implements BedRoomService {
 
     @Override
     public BedRoom updateBedRoom(BedRoom bedRoom) {
-        if (bedRoomRepositoryPort.findById(bedRoom.getRoomId()).isEmpty()) {
+        if (bedRoomRepositoryPort.findBedRoomById(bedRoom.getRoomId()).isEmpty()) {
             throw new IllegalArgumentException("No se puede actualizar: la habitación no existe.");
         }
 
@@ -54,20 +54,14 @@ public class BedRoomServiceImp implements BedRoomService {
                 .orElseThrow(() -> new IllegalArgumentException("Tipo de habitación no encontrado"));
     }
 
-
-
-
-
-
-
     @Override
     public Optional<BedRoom> getBedRoomById(int id) {
-        return bedRoomRepositoryPort.findById(id);
+        return bedRoomRepositoryPort.findBedRoomById(id);
     }
 
     @Override
     public List<BedRoom> getAllBedRooms() {
-        return bedRoomRepositoryPort.findAll();
+        return bedRoomRepositoryPort.findBedRoomAll();
     }
 
     @Override

@@ -1,10 +1,10 @@
 package application.domain.enums;
 
 public enum BedRoomState {
-    DISPONIBLE("DISPONIBLE"),
-    OCUPADA("OCUPADA"),
-    RESERVADA("RESERVADA"),
-    MANTENIMIENTO("MANTENIMIENTO");
+    DISPONIBLE("Disponible"),
+    OCUPADA("Ocupada"),
+    RESERVADA("Reservada"),
+    MANTENIMIENTO("Mantenimiento");
 
     private final String description;
 
@@ -17,5 +17,14 @@ public enum BedRoomState {
     }
 
 
+    public static BedRoomState fromOption(int option) {
+        return switch (option) {
+            case 1 -> DISPONIBLE;
+            case 2 -> OCUPADA;
+            case 3 -> RESERVADA;
+            case 4 -> MANTENIMIENTO;
+            default -> throw new IllegalArgumentException("Opción inválida: " + option);
+        };
+    }
 }
 

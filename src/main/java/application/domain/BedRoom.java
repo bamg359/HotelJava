@@ -8,9 +8,10 @@ public class BedRoom {
     private String room;
     private BedRoomType bedRoomType;
     private double price;
-    private BedRoomState bedRoomState ;
+    private BedRoomState bedRoomState;
 
-    public BedRoom() {}
+    public BedRoom() {
+    }
 
     public BedRoom(int roomId, String room, BedRoomType bedRoomType, double price, BedRoomState state) {
         this.roomId = roomId;
@@ -19,7 +20,6 @@ public class BedRoom {
         this.price = price;
         this.bedRoomState = state;
     }
-
     public BedRoom(String room) {
         this.room = room;
     }
@@ -63,5 +63,15 @@ public class BedRoom {
     public void setBedRoomState(BedRoomState bedRoomState) {
         this.bedRoomState = bedRoomState;
     }
-}
 
+    @Override
+    public String toString() {
+        return "BedRoom{" +
+                "roomId=" + roomId +
+                ", room='" + room + '\'' +
+                ", bedRoomType=" + bedRoomType.getType() +
+                ", price=" + price +
+                ", state=" + bedRoomState +
+                '}';
+    }
+}

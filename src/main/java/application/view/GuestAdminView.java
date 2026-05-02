@@ -12,7 +12,7 @@ public class GuestAdminView {
 
     public void listGuests() {
         System.out.println("--- LISTA DE HUÉSPEDES ---");
-        guestAdminService.getGuests().forEach(g ->
+        guestAdminService.getAllGuests().forEach(g ->
                 System.out.println(g.getId() + " - " + g.getFullName() + " (" + g.getStateText() + ")")
         );
     }

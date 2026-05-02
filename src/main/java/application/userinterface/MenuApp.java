@@ -1,20 +1,20 @@
 package application.userinterface;
 
 import application.util.FormValidationUtil;
-import application.view.BedRoomView;
-import application.view.GuestView;
-import application.view.EmployeeView;
+import application.userinterface.MenuGuest;
+import application.userinterface.MenuBedRoom;
+import application.userinterface.MenuEmployee;
 
 public class MenuApp {
 
-    private final GuestView guestView;
-    private final BedRoomView bedRoomView;
-    private final EmployeeView employeeView;
+    private final MenuGuest menuGuest;
+    private final MenuBedRoom menuBedRoom;
+    private final MenuEmployee menuEmployee;
 
-    public MenuApp(GuestView guestView, BedRoomView bedRoomView, EmployeeView employeeView){
-        this.guestView = guestView;
-        this.bedRoomView = bedRoomView;
-        this.employeeView = employeeView;
+    public MenuApp(MenuGuest menuGuest, MenuBedRoom menuBedRoom, MenuEmployee menuEmployee){
+        this.menuGuest = menuGuest;
+        this.menuBedRoom = menuBedRoom;
+        this.menuEmployee = menuEmployee;
     }
 
     public void showMainMenu(){
@@ -28,9 +28,9 @@ public class MenuApp {
             option = FormValidationUtil.validateInt("Seleccione una opción:");
 
             switch (option){
-                case 1 -> guestView.showMenu();
-                case 2 -> bedRoomView.showMenu();
-                case 3 -> employeeView.showMenu();
+                case 1 -> menuGuest.showMenu();
+                case 2 -> menuBedRoom.showMenu();
+                case 3 -> menuEmployee.showMenu();
                 case 0 -> System.out.println("Saliendo de la aplicación...");
                 default -> System.out.println("Opción inválida, intente de nuevo.");
             }

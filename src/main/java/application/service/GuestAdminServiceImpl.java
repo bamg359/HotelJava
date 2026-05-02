@@ -1,30 +1,26 @@
 package application.service;
 
 import application.domain.Guest;
-import application.repository.GuestRepository;
 import application.service.outputs.GuestAdminService;
-import application.util.FormValidationUtil;
+import application.service.ports.GuestAdminRepositoryPort;
 
 import java.util.List;
 
 public class GuestAdminServiceImpl implements GuestAdminService {
 
-    private final GuestRepository guestRepository;
+    private final GuestAdminRepositoryPort guestAdminRepository;
 
-    public GuestAdminServiceImpl(GuestRepository guestRepository) {
-        this.guestRepository = guestRepository;
+    public GuestAdminServiceImpl(GuestAdminRepositoryPort guestAdminRepository) {
+        this.guestAdminRepository = guestAdminRepository;
     }
 
     @Override
-    public List<Guest> getGuests() {
-        return guestRepository.findAll(); // usamos el método estándar del repositorio
+    public List<Guest> getAllGuests() {
+        return guestAdminRepository.getAllGuests();
     }
 
     @Override
-    public void deleteGuest(int id) {
-        // Validamos la entrada antes de eliminar
-        int guestId = FormValidationUtil.validateInt("Ingrese el ID del huésped a eliminar");
-        guestRepository.deleteById(guestId);
-        System.out.println("Huésped con ID " + guestId + " eliminado correctamente.");
+    public boolean deleteGuest(int id) {
+        return guestAdminRepository.deleteById(id);
     }
 }

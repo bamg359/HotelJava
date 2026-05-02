@@ -18,8 +18,8 @@ public class EmployeeRepository implements EmployeeRepositoryPort {
 
     @Override
     public Employee update(Employee employee) {
-        deleteById(employee.getId());
-        employees.add(employee);
+        deleteById(employee.getId()); // elimina el anterior
+        employees.add(employee);      // agrega el actualizado
         return employee;
     }
 
@@ -36,7 +36,7 @@ public class EmployeeRepository implements EmployeeRepositoryPort {
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public boolean deleteById(int id) {   // ✅ implementación añadida
         return employees.removeIf(e -> e.getId() == id);
     }
 }

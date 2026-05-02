@@ -19,37 +19,51 @@ public class BedRoomRepository implements BedRoomRepositoryPort {
         bedRooms.add(new BedRoom(203, "203", new BedRoomType(3,"Suite"),240000,BedRoomState.DISPONIBLE));
     }
 
+
+
+
+
     @Override
-    public BedRoom save(BedRoom bedRoom) {
+    public BedRoom saveBedRoom(BedRoom bedRoom) {
         bedRooms.add(bedRoom);
         return bedRoom;
     }
 
     @Override
-    public List<BedRoom> findAll() {
+    public List<BedRoom> findBedRoomAll() {
         return bedRooms;
     }
 
     @Override
-    public Optional<BedRoom> findById(int id) {
-        return bedRooms.stream()
-                .filter(b -> b.getRoomId() == id)
-                .findFirst();
+    public Optional<BedRoom> findBedRoomById(int id) {
+        for(BedRoom bedroom: bedRooms){
+            if(bedroom.getRoomId() == id){
+                return Optional.of(bedroom);
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
-    public void deleteById(int id) {
-        bedRooms.removeIf(b -> b.getRoomId() == id);
+    public void deleteBedRoomById(int id) {
+        for(BedRoom bedroom: bedRooms){
+            if(bedroom.getRoomId() == id){
+                bedRooms.remove(bedroom);
+                System.out.println("Habitacion con id " + id + " ha sido eliminada.");
+            }
+        }
+        System.out.println("Habitacion con id " + id + " no encontrada.");
+
     }
 
     @Override
-    public BedRoom update(int id, BedRoom bedRoom) {
-        for (int i = 0; i < bedRooms.size(); i++) {
-            if (bedRooms.get(i).getRoomId() == id) {
+    public BedRoom updateBedRoom(BedRoom bedRoom) {
+        for(int i = 0; i< bedRooms.size(); i++){
+            if(bedRooms.get(i).getRoomId() == bedRoom.getRoomId()){
                 bedRooms.set(i, bedRoom);
                 return bedRoom;
             }
         }
-        throw new IllegalArgumentException("Habitación con Id " + id + " no encontrada");
+        throw new IllegalArgumentException("Habitación con Id " + bedRoom.getRoomId() + "no encontrada");
     }
 }
