@@ -3,6 +3,7 @@ package hotel.infraestructure.out.adapter;
 import hotel.application.ports.BedRoomRepositoryPort;
 import hotel.domain.BedRoom;
 import hotel.infraestructure.out.mapper.BedRoomRowMapper;
+import hotel.infraestructure.out.mapper.RowMapper;
 
 import java.sql.Connection;
 import java.util.List;
@@ -12,7 +13,7 @@ public class BedRoomRepositoryDb implements BedRoomRepositoryPort {
 
 
     private final Connection connection;
-    private final BedRoomRowMapper bedRoomRowMapper;
+    private final RowMapper bedRoomRowMapper;
 
     public BedRoomRepositoryDb(Connection connection, BedRoomRowMapper bedRoomRowMapper) {
         this.connection = connection;
@@ -21,7 +22,7 @@ public class BedRoomRepositoryDb implements BedRoomRepositoryPort {
 
     @Override
     public BedRoom saveBedRoom(BedRoom bedRoom) {
-        return null;
+        return bedRoom;
     }
 
     @Override

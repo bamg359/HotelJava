@@ -1,5 +1,6 @@
 package hotel.userinterface;
 
+import hotel.infraestructure.in.view.adapter.BedRoomTypeView;
 import hotel.infraestructure.out.db.DataBaseConnectionMySQL;
 import hotel.infraestructure.util.FormValidationUtil;
 import hotel.infraestructure.in.view.adapter.BedRoomView;
@@ -13,10 +14,12 @@ public class MenuApp {
 
     private final GuestView guestView;
     private final BedRoomView bedRoomView;
+    private final BedRoomTypeView bedRoomTypeView;
 
-    public MenuApp(GuestView guestView, BedRoomView bedRoomView){
+    public MenuApp(GuestView guestView, BedRoomView bedRoomView, BedRoomTypeView bedRoomTypeView) {
         this.guestView = guestView;
         this.bedRoomView = bedRoomView;
+        this.bedRoomTypeView = bedRoomTypeView;
     }
 
     public void showMainMenu(){
@@ -126,6 +129,13 @@ public class MenuApp {
                     bedRoomView.getBedRoomById();
                     break;
                 case 6:
+                    System.out.println("Crear Tipo de Habitacion");
+                    bedRoomTypeView.createBedRoomTypeView();
+                    break;
+                case 7:
+                    System.out.println("Listar Tipo de Habitacion");
+                    break;
+                case 8:
                     System.out.println("Saliendo del menu de habitaciones");
                     init = false;
                     break;

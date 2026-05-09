@@ -22,7 +22,7 @@ public class BedRoomTypeRepository implements BedRoomTypeRepositoryPort {
     );
 
     @Override
-    public BedRoomType saveBedRoomType() {
+    public BedRoomType saveBedRoomType(BedRoomType bedRoomType) {
         return null;
     }
 
