@@ -38,4 +38,19 @@ public class BedRoomTypeRepository implements BedRoomTypeRepositoryPort {
 
         return Optional.empty();
     }
+
+    @Override
+    public List<BedRoomType> findAllBedRoomTypes() {
+        return List.of();
+    }
+
+    @Override
+    public BedRoomType updateBedRoomType(int id, BedRoomType bedRoomType) {
+        return null;
+    }
+
+    @Override
+    public void deleteBedRoomTypeById(int id) {
+
+    }
 }

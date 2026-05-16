@@ -17,6 +17,8 @@ import hotel.application.inputs.GuestAdminService;
 import hotel.application.inputs.GuestService;
 import hotel.application.ports.BedRoomRepositoryPort;
 import hotel.infraestructure.out.db.DataBaseConnectionMySQL;
+import hotel.infraestructure.out.mapper.BedRoomTypeRowMapper;
+import hotel.infraestructure.out.mapper.RowMapper;
 import hotel.userinterface.MenuApp;
 import hotel.infraestructure.in.view.adapter.BedRoomView;
 import hotel.infraestructure.in.view.adapter.GuestView;
@@ -29,14 +31,17 @@ public class Config {
 
         Connection connection = DataBaseConnectionMySQL.getInstance().getConnection();
 
+
+
+
         Guest guest = new Guest();
         GuestRepository guestRepository = new GuestRepository();
         GuestService guestService = new GuestServiceImpl(guestRepository);
         GuestAdminService guestAdminService = new GuestAdminServiceImpl(guestRepository);
         GuestView guestView = new GuestView(guestService, guest, guestAdminService );
 
-
-        BedRoomTypeRepositoryPort bedRoomTypeRepository = new BedRoomTypeRepositoryDB(connection);
+        BedRoomTypeRowMapper bedRoomTypeRowMapper = new BedRoomTypeRowMapper();
+        BedRoomTypeRepositoryPort bedRoomTypeRepository = new BedRoomTypeRepositoryDB(connection, bedRoomTypeRowMapper);
         BedRoomTypeUseCase bedRoomTypeUseCase = new BedRoomTypeInputAdapter(bedRoomTypeRepository);
         BedRoomTypeView bedRoomTypeView = new BedRoomTypeView(bedRoomTypeUseCase);
 

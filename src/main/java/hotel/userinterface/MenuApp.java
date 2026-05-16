@@ -104,7 +104,10 @@ public class MenuApp {
 
         while(init){
 
-            System.out.println("Seleccione 1. Crear Habitaciones 3. Eliminar Habitaciones 4. Listar Hueabitaciones 5. Buscar habitaciones por id 6. salir");
+            System.out.println("Seleccione 1. Crear Habitaciones \n" +
+                    "3. Eliminar Habitaciones 4. Listar Hueabitaciones \n " +
+                    "5. Buscar habitaciones por id 6. Crear Tipo de Habitacion \n" +
+                    "7. Listar Tipo de Habitacion 8.Buscar Tipo x Id 9. Eliminar tipo por id 10. Salir");
             int option = sc.nextInt();
             sc.nextLine();
             switch (option){
@@ -134,8 +137,17 @@ public class MenuApp {
                     break;
                 case 7:
                     System.out.println("Listar Tipo de Habitacion");
+                    bedRoomTypeView.getAllBedRoomTypesView();
                     break;
                 case 8:
+                    System.out.println("Buscar Tipo de Hab por Id");
+                    bedRoomTypeView.getBedRoomTypeById();
+                    break;
+                case 9:
+                    System.out.println("Eliminar Tipo");
+                    bedRoomTypeView.deleteBedRoomType();
+                    break;
+                case 10:
                     System.out.println("Saliendo del menu de habitaciones");
                     init = false;
                     break;
